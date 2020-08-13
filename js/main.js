@@ -2,7 +2,7 @@ const container = d3.select(".container").append("svg");
 const width = 800;
 const height = 600;
 const margin = 100;
-const barHeight = 20;
+const barHeight = 25;
 
 const chartWidth = width - margin * 2
 const chartHeight = height - margin * 2
@@ -113,6 +113,13 @@ async function renderStats(superheroId) {
         .attr("stroke","lightgrey")
 
 
+    // container.append('text')
+    //     .attr('x', chartWidth / 2 + margin)
+    //     .attr('y', 40)
+    //     .attr('text-anchor', 'middle')
+    //     .text(superHeroData.name)
+
+
     //skapar ny array med objekt med nya keys
     const superHeroStatsArr = createNewDataArray(superHeroData.powerstats);
     
@@ -123,6 +130,7 @@ async function renderStats(superheroId) {
     bars 
         .transition().duration(2000)
         .attr("width", value => x(value.value))
+
         
 
     //skapar rect
@@ -133,38 +141,43 @@ async function renderStats(superheroId) {
         .attr("width", 0)
         .attr("height", barHeight)
         .attr("fill", "lightgrey")
+        .on("mouseenter", function (actual) {
+            
+            d3.select(this)
+                .attr("opacity", 0.5)
+                .transition()
+                .duration(300)
+
+            
+            const a = x(actual.value)
+
+            //skapar linje vid hover
+            chart.append('line')
+                .attr("class", "line")
+                .attr('x1', a)
+                .attr('y1', chartHeight)
+                .attr('x2', a)
+                .attr('stroke', 'red')
+        })
+        .on('mouseleave', function () {
+            d3.select(this)
+              .transition()
+              .duration(300)
+              .attr('opacity', 1)
+
+            chart.selectAll('.line').remove()
+  
+          })
     .transition(t)
         .attr("width", value => x(value.value))
-        .attr("fill", "navy")
+        .attr("fill", "#35659b")
+
 
     console.log(superHeroData.image.url);
-    const circles = imgWrapper.selectAll("circle").data(superHeroData.image.url);
-
-
-    container.append('text')
-    .attr('x', width / 2 + margin)
-    .attr('y', 40)
-    .attr('text-anchor', 'middle')
-    .text(superHeroData.name)
-
-    chart
-    .on("mouseenter", function (actual, i) {
-        d3.select(this).attr("opacity", 0.5)
-    })
-    .on("mouseleave", function (actual, i) {
-        d3.select(this).attr("opacity", 1)
-    })
-
-    // circles
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", 40)
-    //     .attr("cy", 60)
-    //     .attr("r", 40)
 
 }
 
-renderStats("342");
+renderStats("348");
 
 document.querySelector(".dropdown").addEventListener("change", (event) => {
     renderStats(event.target.value);

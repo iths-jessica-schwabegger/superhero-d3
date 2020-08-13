@@ -1,0 +1,13 @@
+.chart {
+    background-color: grey;
+}
+
+.line {
+    stroke: #603c70;
+    stroke-width: 2;
+    stroke-dasharray: 3 6;
+}
+
+.value-text {
+    color: red;
+}
