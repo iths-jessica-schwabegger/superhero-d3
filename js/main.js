@@ -50,7 +50,7 @@ const verticalGridLinesGroup = gridLinesGroup.append("g")
     .attr("transform", `translate(0,${chartHeight})`)
 
 
-    //tar bort keys i obj som ej ska visas i grafen
+//tar bort keys i obj som ej ska visas i grafen
 function removeKeys(obj, keys) {
     for (let key of keys) {
         delete obj[key];
@@ -70,16 +70,12 @@ function createNewDataArray(data) {
     return arr;
 }
 
-
-
 //rendera data
 async function renderStats(superheroId) {
 
     let superHeroData = await d3.json(`https://www.superheroapi.com/api.php/10158949248976982/${superheroId}`);
     console.log(superHeroData);
 
-    //sparar namn på hero till senare
-    //const superHeroName = superHeroData.name;
 
     //Lägger in data på y
     let y = d3.scaleBand()
@@ -110,7 +106,7 @@ async function renderStats(superheroId) {
     verticalGridLinesGroup
         .call(verticalGridLines)
     gridLinesGroup.selectAll(".tick line")
-        .attr("stroke","lightgrey")
+        .attr("stroke","grey")
 
 
     // container.append('text')
@@ -141,7 +137,7 @@ async function renderStats(superheroId) {
         .attr("width", 0)
         .attr("height", barHeight)
         .attr("fill", "lightgrey")
-        .on("mouseenter", function (bar) {
+        .on("mouseover", function (bar, data) {
             
             d3.select(this)
                 .attr("opacity", 0.5)
