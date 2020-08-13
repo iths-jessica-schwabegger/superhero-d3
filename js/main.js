@@ -141,15 +141,21 @@ async function renderStats(superheroId) {
         .attr("width", 0)
         .attr("height", barHeight)
         .attr("fill", "lightgrey")
-        .on("mouseenter", function (actual) {
+        .on("mouseenter", function (bar) {
             
             d3.select(this)
                 .attr("opacity", 0.5)
-                .transition()
-                .duration(300)
+                .append("text")
+                .text(bar.value)
+                .attr("fill", "red")
+                .attr("y", 40)
+                .attr("x", 40,)
+                // .transition()
+                // .duration(300)
 
             
-            const a = x(actual.value)
+            const a = x(bar.value)
+            console.log(bar.value)
 
             //skapar linje vid hover
             chart.append('line')
@@ -179,7 +185,7 @@ async function renderStats(superheroId) {
 
 renderStats("348");
 
-document.querySelector(".dropdown").addEventListener("change", (event) => {
+document.querySelector(".menu").addEventListener("click", (event) => {
     renderStats(event.target.value);
 })
 

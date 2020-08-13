@@ -1,5 +1,5 @@
-.chart {
-    background-color: grey;
+.container {
+    background-color: rgb(231, 231, 231);
 }
 
 .line {
@@ -10,4 +10,17 @@
 
 .value-text {
     color: red;
+}
+.menu {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+button {
+    border: none;
+    margin: 1rem;
+    background-color: #35659b;
+    color: rgb(224, 224, 224);
+    padding: 0.2rem 1rem;
+    cursor: pointer;
 }
